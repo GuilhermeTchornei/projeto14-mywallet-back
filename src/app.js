@@ -2,8 +2,10 @@ import express from 'express';
 import { MongoClient } from 'mongodb';
 import dotenv from 'dotenv';
 import dayjs from 'dayjs';
+import cors from 'cors';
 
 const app = express();
+app.use(cors());
 app.use(express.json());
 
 dotenv.config();
@@ -12,18 +14,21 @@ await mongoClient.connect();
 const db = mongoClient.db();
 console.log('database connected');
 
-app.get('/user', async (req, res) => {
+app.post('/sign-in', async (req, res) => {
     const { email, password } = req.body;
 
-    try {
-        if (await db.collection('users').findOne({ email: email, password: password })) return res.sendStatus(200);
+    try
+    {
+        const user = await db.collection('users').findOne({ email: email, password: password });
+        if (user) return res.status(200).send(user);
         res.sendStatus(404);
     } catch (error) {
         console.log(error);
         res.sendStatus(500);
     }
 });
-app.post('/user', async (req, res) => {
+
+app.post('/sign-up', async (req, res) => {
     const { name, email, password } = req.body;
 
     try {
@@ -38,6 +43,7 @@ app.post('/user', async (req, res) => {
         res.sendStatus(500);
     }
 });
+
 app.get('/transitions', async (req, res) => {
     try {
         const transitions = await db.collection('transitions').find().toArray();
@@ -47,6 +53,7 @@ app.get('/transitions', async (req, res) => {
         res.sendStatus(500);
     }
 });
+
 app.post('/transitions', async (req, res) => {
     const { description, value, type } = req.body;
 
