@@ -1,7 +1,6 @@
 import db from "../Config/database.js";
 import {v4 as uuid} from 'uuid';
 import bcrypt from 'bcrypt';
-import userSchema from "../Model/LoginSchema.js";
 
 
 export async function SignIn(req, res){
@@ -26,15 +25,7 @@ export async function SignIn(req, res){
 }
 
 export async function SignUp(req, res){
-    const { name, email, password, confirmPassword } = req.body;
-
-    const { error } = userSchema.validate({name, email, password, confirmPassword}, { abortEarly: false});
-
-    if(error){
-        const errorMessages = error.details.map(e => e.message);
-        console.log(errorMessages);
-        return res.status(422).send(errorMessages);
-    }
+    const { name, email, password } = req.body;
 
     const passwordHashed = bcrypt.hashSync(password, 10);
 
