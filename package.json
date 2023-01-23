@@ -1,7 +1,6 @@
 {
   "name": "projeto14-mywallet-back",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "type": "module",
   "scripts": {
@@ -12,12 +11,24 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.1.0",
     "cors": "^2.8.5",
     "dayjs": "^1.11.7",
+    "dependencies": "^0.0.1",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "joi": "^17.7.0",
     "mongodb": "^4.13.0",
-    "nodemon": "^2.0.20"
-  }
+    "nodemon": "^2.0.20",
+    "uuid": "^9.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GuilhermeTchornei/projeto14-mywallet-back.git"
+  },
+  "bugs": {
+    "url": "https://github.com/GuilhermeTchornei/projeto14-mywallet-back/issues"
+  },
+  "homepage": "https://github.com/GuilhermeTchornei/projeto14-mywallet-back#readme",
+  "description": ""
 }
